@@ -1,0 +1,80 @@
+  body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background: #f9fafb;
+        color: #333;
+        margin: 40px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    h2 {
+        color: #2c3e50;
+        margin-bottom: 12px;
+        font-weight: 700;
+        font-size: 1.8rem;
+        border-bottom: 3px solid #3498db;
+        padding-bottom: 6px;
+        width: 70%;
+        max-width: 900px;
+    }
+
+    p {
+        font-size: 1rem;
+        margin: 6px 0;
+        width: 70%;
+        max-width: 900px;
+        color: #555;
+    }
+
+    p strong {
+        color: #2c3e50;
+    }
+
+    table {
+        border-collapse: separate;
+        border-spacing: 0;
+        width: 70%;
+        max-width: 900px;
+        margin-top: 20px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        border-radius: 8px;
+        overflow: hidden;
+        background-color: #fff;
+    }
+
+    th, td {
+        padding: 14px 20px;
+        text-align: center;
+    }
+
+    th {
+        background-color: #3498db;
+        color: #fff;
+        font-weight: 600;
+        letter-spacing: 0.05em;
+        text-transform: uppercase;
+    }
+
+    tr:nth-child(even) {
+        background-color: #f6f8fa;
+    }
+
+    tr:hover {
+        background-color: #d6eaff;
+        transition: background-color 0.3s ease;
+    }
+
+    /* Responsive for smaller screens */
+    @media (max-width: 768px) {
+        body {
+            margin: 20px;
+        }
+        h2, p, table {
+            width: 95%;
+            max-width: none;
+        }
+        th, td {
+            padding: 12px 10px;
+        }
+    }

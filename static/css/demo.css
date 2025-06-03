@@ -1,0 +1,77 @@
+/* Section container */
+.section-container {
+    padding: 40px 20px;
+    max-width: 1000px;
+    margin: auto;
+}
+
+/* Section headings */
+.section-title {
+    font-size: 28px;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 20px;
+    color: #2c3e50;
+}
+
+.section-subtitle {
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 16px;
+    color: #7f8c8d;
+}
+
+/* Card style */
+.card {
+    background-color: #f9f9f9;
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Student list */
+.student-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+/* Student card toggle */
+.student-menu {
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    font-weight: bold;
+    font-size: 18px;
+    padding: 10px;
+    background-color: #ecf0f1;
+    border-radius: 8px;
+    transition: background-color 0.3s ease;
+}
+
+.student-menu:hover {
+    background-color: #dfe6e9;
+}
+
+/* Student details */
+.student-details {
+    margin-top: 10px;
+    padding: 15px;
+    background-color: #ffffff;
+    border-left: 4px solid #3498db;
+    border-radius: 8px;
+}
+
+.hidden {
+    display: none;
+}
+
+.menu-arrow {
+    font-size: 20px;
+    transform: rotate(0deg);
+    transition: transform 0.3s ease;
+}
+
+.student-card.open .menu-arrow {
+    transform: rotate(90deg);
+}

@@ -1,0 +1,24 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Add Student</title>
+</head>
+<body>
+   <h2>Add Student to {{ name }}</h2>
+<form method="post">
+    {% csrf_token %}
+
+    <label for="student_name">Name:</label>
+    <input type="text" name="student_name" value="John Doe" required><br>
+
+    <label for="student_email">Email:</label>
+    <input type="email" name="student_email" value="johndoe@example.com" required><br>
+
+    <label for="roll_number">Roll Number:</label>
+    <input type="number" name="roll" value="1001" required><br>
+
+    <button type="submit">Add Student</button>
+</form>
+</body>
+</html>

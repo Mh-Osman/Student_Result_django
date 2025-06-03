@@ -1,0 +1,59 @@
+
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Student Results</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 70%;
+        }
+        th, td {
+            padding: 8px 12px;
+            border: 1px solid #333;
+            text-align: center;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        h2 {
+            margin-bottom: 5px;
+        }
+    </style>
+    <link rel="stylesheet" href="{% static 'css/student.css' %}">
+</head>
+<body>
+
+    <h2>Student Details</h2>
+    <p><strong>Name:</strong> {{ student.name }}</p>
+    <p><strong>Email:</strong> {{ student.email }}</p>
+    <p><strong>UID:</strong> {{ student.uid }}</p>
+    <p><strong>Roll:</strong> {{ student.roll }}</p>
+
+    <h2>Results</h2>
+
+    {% if results %}
+        <table>
+            <tr>
+                <th>Subject</th>
+                <th>Mid</th>
+                <th>Final</th>
+                <th>Total</th>
+            </tr>
+            {% for result in results %}
+                <tr>
+                    <td>{{ result.subject }}</td>
+                    <td>{{ result.mid }}</td>
+                    <td>{{ result.final }}</td>
+                    <td>{{ result.total }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+    {% else %}
+        <p>No results found for this student.</p>
+    {% endif %}
+
+</body>
+</html>

@@ -1,0 +1,54 @@
+*{
+
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+   .header {
+      background-color: #ffffff;
+      color: #1a1a1a;
+      padding: 15px 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 24px;
+      font-weight: bold;
+      color:#2463eb;
+    }
+    .logo:hover {
+      color: #2463eb;
+    }
+    .logo a {
+     display: flex;
+  align-items: center;
+  text-decoration: none;
+  font-size: 24px;
+  color: #0056b3; /* Blue theme */
+  font-weight: bold;
+    }
+
+    .logo-img {
+  height: 40px;
+  width: 40px;
+  margin-right: 10px;
+  object-fit: contain;
+}
+
+   .nav-links a {
+    text-decoration: none; /* Removes underline */
+    color:black; /* Sets text color to blue */
+    font-weight: bold; /* Keeps text bold */
+    font-size: 18px; /* Optional: Adjust font size */
+}
+
+.nav-links {
+    display: flex;
+    gap: 20px;
+}
+
+.nav-links a:hover {
+      color: #2463eb;
+}

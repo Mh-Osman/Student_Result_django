@@ -1,0 +1,142 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ScoreNest | Home</title>
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="{% static 'css/navbar.css' %}">
+    <link rel="stylesheet" href="{% static 'css/coverphoto.css' %}">
+    <link rel="stylesheet" href="{% static 'css/card_section.css' %}">
+    <link rel="stylesheet" href="{% static 'css/form.css' %}">
+    <link rel="stylesheet" href="{% static 'css/footer.css' %}">
+    <link rel="stylesheet" href="{% static 'css/demo.css' %}">
+    <style>
+        .hidden { display: none; }
+        .student-card { margin-bottom: 1rem; padding: 1rem; border-radius: 8px; background: #f9f9f9; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        .student-menu { display: flex; justify-content: space-between; cursor: pointer; font-weight: bold; }
+        .student-details { margin-top: 0.5rem; }
+        .result-row { padding: 0.5rem; border: 1px solid #ccc; margin-top: 0.5rem; border-radius: 5px; background: #fff; }
+    </style>
+</head>
+
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="logo">
+            <a href="{% url 'institution' name=institution.name uid=institution.uid %}">
+                <img src="{% static 'images/logoo.png' %}" alt="ScoreNest" class="logo-img" />
+                <span>ScoreNest</span>
+            </a>
+        </div>
+        <nav class="nav-links">
+            <a href="{% url 'institution' name=institution.name uid=institution.uid %}">Home</a>
+            <a href="{% url 'institution' name=institution.name uid=institution.uid %}">{{institution.name}}</a>
+            <a href="{% url 'add_student' name=institution.name uid=institution.uid %}">Add student</a>
+            <a href="{% url 'institution' name=institution.name uid=institution.uid %}">Contact</a>
+            <a href="{% url 'home' %}">Logout</a>
+        </nav>
+    </header>
+
+    <!-- Institution Section -->
+    <section id="institution" class="section-container">
+        <h2 class="section-title">Institution Information</h2>
+        <div class="institution-details card">
+            <p><strong>Name:</strong> {{ institution.name }}</p>
+            <p><strong>Address:</strong> {{ institution.address }}</p>
+            <p><strong>Contact:</strong> {{ institution.contact }}</p>
+            <p><strong>Email:</strong> {{ institution.email }}</p>
+        </div>
+    </section>
+
+    <!-- Student Section -->
+    <section id="students" class="section-container">
+        <h2 class="section-title">Students</h2>
+        <p class="section-subtitle">Click on a student name to view full details:</p>
+        <ul class="student-list">
+            {% for student in students %}
+            <li class="student-card card">
+                <div class="student-menu" onclick="toggleStudent('{{ student.id }}')">
+                    <span>{{ student.name }}</span>
+                    <span class="menu-arrow">&#9654;</span>
+                </div>
+                <div id="student-details-{{ student.id }}" class="student-details hidden">
+                    <p><strong>Roll Number:</strong> {{ student.roll }}</p>
+                    <p><strong>Email:</strong> {{ student.email }}</p>
+                    <p><strong>Phone:</strong> {{ student.phone }}</p>
+                    <p><strong>Address:</strong> {{ student.address }}</p>
+                    <button onclick="addResultForm('{{ student.id }}', '{{ student.roll }}')">Add Result</button>
+                    <form action="" method="post" id="results-form-{{ student.id }}">
+                        {% csrf_token %}
+                        <div id="results-container-{{ student.id }}"></div>
+                        <button type="submit">Submit</button>
+                    </form>
+                </div>
+            </li>
+            {% empty %}
+            <li class="card">No students found.</li>
+            {% endfor %}
+        </ul>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>&copy; 2025 ScoreNest. All rights reserved.</p>
+    </footer>
+
+    <script>
+        let formCounts = {};
+
+        function toggleStudent(studentId) {
+            const details = document.getElementById(`student-details-${studentId}`);
+            if (details.classList.contains('hidden')) {
+                details.classList.remove('hidden');
+            } else {
+                details.classList.add('hidden');
+            }
+        }
+
+        function addResultForm(studentId, studentRoll) {
+            if (!formCounts[studentId]) {
+                formCounts[studentId] = 0;
+            }
+
+            const container = document.getElementById(`results-container-${studentId}`);
+            const rowId = `row-${studentId}-${formCounts[studentId]}`;
+
+            const div = document.createElement('div');
+            div.setAttribute('id', rowId);
+            div.classList.add('result-row');
+
+            div.innerHTML = `
+                <label>Subject:</label>
+                <input type="text" name="subject_${formCounts[studentId]}" required>
+                <label>Mid:</label>
+                <input type="number" name="mid_${formCounts[studentId]}" required>
+                <label>Final:</label>
+                <input type="number" name="final_${formCounts[studentId]}" required>
+                <label>Full Mark:</label>
+                <input type="number" name="full_mark_${formCounts[studentId]}" value="100">
+                <input type="hidden" name="sid_${formCounts[studentId]}" value="${studentId}">
+                <input type="hidden" name="roll_${formCounts[studentId]}" value="${studentRoll}">
+                <button type="button" onclick="removeResultForm('${rowId}')">Remove</button>
+            `;
+
+            container.appendChild(div);
+            formCounts[studentId]++;
+        }
+
+        function removeResultForm(rowId) {
+            const row = document.getElementById(rowId);
+            if (row) {
+                row.remove();
+            }
+        }
+    </script>
+</body>
+
+</html>

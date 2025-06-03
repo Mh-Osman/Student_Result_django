@@ -1,0 +1,128 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ScoreNest | Home</title>
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="{% static 'css/navbar.css' %}">
+    <link rel="stylesheet" href="{% static 'css/coverphoto.css' %}">
+    <link rel="stylesheet" href="{% static 'css/card_section.css' %}">
+    <link rel="stylesheet" href="{% static 'css/form.css' %}">
+    <link rel="stylesheet" href="{% static 'css/footer.css' %}">
+    <link rel="stylesheet" href="{% static 'css/error.css' %}">
+    <!-- JavaScript -->
+    <script src="{% static 'js/my.js' %}"></script>
+</head>
+
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="logo">
+            <a href="{% url 'home' %}">
+                <img src="{% static 'images/logoo.png' %}" alt="ScoreNest" class="logo-img" />
+                <span>ScoreNest</span>
+            </a>
+        </div>
+        <nav class="nav-links">
+            <a href="{% url 'home' %}">Home</a>
+            <a href="{% url 'about' %}">About us</a>
+            <a href="{% url 'contact' %}">Contact</a>
+        </nav>
+    </header>
+
+    <!-- Cover Photo -->
+    <section class="cover-photo">
+        <h1>Welcome to ScoreNest Portal</h1>
+    </section>
+
+    <!-- Card Section -->
+    <section class="all">
+        <section class="section" onclick="openForm('institutionForm')">
+            <div class="section-content">
+                <img src="{% static 'images/school.jpg' %}" alt="Institution" class="section-img">
+                <div class="text">
+                    <h2>Institution</h2>
+                    <p>Explore affiliated institutions, their profiles, and academic performance.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" onclick="openForm('studentForm')">
+            <div class="section-content">
+                <img src="{% static 'images/students.jpg' %}" alt="Student" class="section-img">
+                <div class="text">
+                    <h2>Student</h2>
+                    <p>Access individual student results, rankings, and performance analytics.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="section-content">
+                <img src="{% static 'images/announcment.jpg' %}" alt="Announcement" class="section-img">
+                <div class="text">
+                    <h2>Announcement</h2>
+                    <p>Latest news, updates, and notifications directly from the ScoreNest portal.</p>
+                </div>
+            </div>
+        </section>
+    </section>
+
+    <!-- Institution Form Modal -->
+
+    <div class="modal" id="institutionForm">
+        <div class="modal-content">
+            <span class="close" onclick="closeForm('institutionForm')">&times;</span>
+            <h2>Institution Form</h2>
+            <!-- Institution Form Modal -->
+            {% if messages %}
+            <div class="message-container">
+                {% for message in messages %}
+                <div class="alert {{ message.tags }}">{{ message }}</div>
+                {% endfor %}
+            </div>
+            {% endif %}
+
+            <form method="post">
+                {% csrf_token %}
+                <input type="hidden" name="form_type" value="institution_form">
+                <label>Institution Name:</label><br>
+                <input type="text" name="name"><br><br>
+                <label>Email:</label><br>
+                <input type="email" name="email" required><br><br>
+                <label>UID:</label><br>
+                <input type="number" name="uid" required><br><br>
+                <button type="submit">Submit</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Student Form Modal -->
+    <div class="modal" id="studentForm">
+        <div class="modal-content">
+            <span class="close" onclick="closeForm('studentForm')">&times;</span>
+            <h2>Student Form</h2>
+            <form method="post">
+                {% csrf_token %}
+                <input type="hidden" name="form_type" value="student_form">
+                <label for="uid">UID:</label><br>
+                <input type="number" name="uid" required><br><br>
+                <label for="roll">Roll Number:</label><br>
+                <input type="text" name="roll" required><br><br>
+                <button type="submit">Submit</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>&copy; 2025 ScoreNest. All rights reserved.</p>
+    </footer>
+</body>
+
+</html>
